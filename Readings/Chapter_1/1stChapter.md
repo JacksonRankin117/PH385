@@ -58,7 +58,7 @@ DT        = 0.001        # Step in time (Delta t)
 TAU       = 1            # Time constant
 MAX_TIME  = 10           # Holds the maximum time before the loop breaks
 
-N_U       = [INIT_N]     # List that holds the number of U 235 in the sample
+N         = [INIT_N]     # List that holds the number of U 235 in the sample
 t         = [INIT_TIME]  # List that holds the time
 
 # ==============================================================================
@@ -67,10 +67,10 @@ t         = [INIT_TIME]  # List that holds the time
 
 while t[-1] < MAX_TIME:
     # Calculate the new number of nuclei
-    N_Next = N_U[-1] - N_U[-1] / TAU * DT
+    N_Next = N[-1] - N[-1] / TAU * DT
 
     # Add the new number of nuclei to N_U
-    N_U.append(N_Next)
+    N.append(N_Next)
 
     # Advance the time
     t.append(t[-1] + DT)
