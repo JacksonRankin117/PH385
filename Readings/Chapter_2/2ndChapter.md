@@ -93,3 +93,71 @@ And our drag becomes:
 $$F^*_{drag} = \frac{\rho}{\rho_0} F_{drag}(y = 0)$$
 
 ## 2.3 Motion of a Batted Ball
+
+In this section, we will implement a more accurate model for drag force. Wind and altitude will also play a role.
+
+Measurements in a wind tunnel also point that the $C$ is a function of $v$. At low speeds, $C$ is around 0.5, but at high speeds, it drops by often more than a factor of 2. This is because at low speeds, the flow around the baseball is more laminar, but at high speeds, the flow becomes turbulent, allowing the baseball to slip more easily through the air.
+
+We can approximate the drag factor with this equation:
+
+$$\frac{B_2}{m} = 0.0039 + \frac{0.0058}{1 + \exp{\left[(v - v_d)/\Delta\right]}}$$
+
+Where $v_d$ = 35 m/s, and $\Delta$ = 5 m/s
+
+The effect of drag is enormous, and taking this into account, we see that the maximum range of balls batted is more around a $35\degree$ angle. The drag force is therefore:
+
+$$F_{drag,x} = -B_2 |\mathbf{v} - \mathbf{v_{wind}}|(v_x - v_{wind})$$
+
+$$F_{drag,y} = -B_2 |\mathbf{v} - \mathbf{v_{wind}}|v_y$$
+
+Where a positive $v_{wind}$ corresponds to a tailwind, propelling the ball forward. However good this model may seem, it is still not adequate to correctly model a true baseball, as there are too many factors involved.
+
+## 2.4 Throwing a Baseball: The Effects of Spin
+
+As a baseball is thrown, the pitcher may impart an angular velocity on the ball. As the ball is thrown with, say, backspin, the wind speed of the top of the ball will be less than the wind speed of the bottom of the ball. As the force of drag is proportional to the square of the velocity, there will be a stronger force on the bottom of the ball rather than the top. This force will have a non-negligible upward component, which will cause the ball to rise as it travels forward. 
+
+To find this force, we need only find the difference between the drag on the top and on the bottom of the ball:
+
+$$F_M \propto (v + r\omega)^2 - (v i r\omega)^2 ~ vr\omega$$
+
+So the general form of the magnus force is 
+
+$$F_M = S_0 \omega v_x$$
+
+Where the coefficient $S_0$ takes care of averaging the drag force over the face of the ball.
+
+To calculate the trajectory of the ball, we must consider three dimensions. Let the $x$ axis be the axis that runs through home plate and the pitcher, $y$ will describe the height, and $z$ will be the axis perpendicular to $x$ and $y$, which runs on the ground.
+
+The equations of motion for a sidearm curve ball are then:
+
+$$\frac{dx}{dt} = v_x$$
+
+$$\frac{dv_x}{dt} = -\frac{B_2}{m} \, v \, v_x$$
+
+$$\frac{dy}{dt} = v_y$$
+
+$$\frac{dv_y}{dt} = -g$$
+
+$$\frac{dv_z}{dt} = v_z$$
+
+$$\frac{dv_z}{dt} = -\frac{S_0\, v_x\, \omega}{m}$$
+
+Where we assume that $\omega$ is parallel to $y$
+
+Next, lets consider the curve ball, where the pitcher imparts a large amount of spin on the ball. We are able to find the lateral force of the ball with an approximation:
+
+$$\frac{F_{\text{lateral}}}{mg} = 0.5\left[\sin(4\theta) - 0.25\sin(8\theta) + 0.08\sin(12\theta) - 0.025\sin(16\theta)\right]$$
+
+## 2.5 Golf
+
+Lets again analyze the motion of the projectile, i.e, the golf ball, in the $xy$ plane. Our equations of motion are therefore:
+
+$$\frac{dv_x}{dt} = -\frac{F_{\text{drag,x}}}{m} - \frac{S_0 \, \omega \, v_y}{m}$$
+
+$$\frac{dv_y}{dt} = -\frac{F_{\text{drag,y}}}{m} - \frac{S_0 \, \omega \, v_x}{m} - g$$
+
+Here we assume that the ball was hit with a backspin, so that $\omega$ is normal to the $xy$ plane. Drag force is:
+
+$$F_{\text{drag}} = -C \, \rho \, A \, v^2$$
+
+At low speeds, $C = 1/2$, and at speeds higher than 14 m/s, $C = 7.0/v$
