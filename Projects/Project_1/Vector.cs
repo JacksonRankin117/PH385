@@ -12,8 +12,6 @@ using System.Globalization;
 
       - This is a vector struct that I reuse for several projects, so if it looks like I put too much effort in for the 
         project at hand, that is because this struct is meant to apply to a general use.
-    
-      - 
 */
 
 public struct Vec3
@@ -146,7 +144,7 @@ public struct Vec3
     public static Vec3 operator /(Vec3 v, double s)
     {
         if (Math.Abs(s) < Epsilon)
-            throw new DivideByZeroException("Division by near-zero scalar.");
+            return new Vec3(0, 0, 0);
         return v * (1.0 / s);
     }
 

@@ -1,14 +1,29 @@
-C:\Users\jrank\Desktop\School\Semester 7\PH385\Project_1\obj\Debug\net10.0\Project_1.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\jrank\Desktop\School\Semester 7\PH385\Project_1\obj\Debug\net10.0\Project_1.AssemblyInfoInputs.cache
-C:\Users\jrank\Desktop\School\Semester 7\PH385\Project_1\obj\Debug\net10.0\Project_1.AssemblyInfo.cs
-C:\Users\jrank\Desktop\School\Semester 7\PH385\Project_1\obj\Debug\net10.0\Project_1.csproj.CoreCompileInputs.cache
-C:\Users\jrank\Desktop\School\Semester 7\PH385\Project_1\bin\Debug\net10.0\Project_1.exe
-C:\Users\jrank\Desktop\School\Semester 7\PH385\Project_1\bin\Debug\net10.0\Project_1.deps.json
-C:\Users\jrank\Desktop\School\Semester 7\PH385\Project_1\bin\Debug\net10.0\Project_1.runtimeconfig.json
-C:\Users\jrank\Desktop\School\Semester 7\PH385\Project_1\bin\Debug\net10.0\Project_1.dll
-C:\Users\jrank\Desktop\School\Semester 7\PH385\Project_1\bin\Debug\net10.0\Project_1.pdb
-C:\Users\jrank\Desktop\School\Semester 7\PH385\Project_1\obj\Debug\net10.0\Project_1.dll
-C:\Users\jrank\Desktop\School\Semester 7\PH385\Project_1\obj\Debug\net10.0\refint\Project_1.dll
-C:\Users\jrank\Desktop\School\Semester 7\PH385\Project_1\obj\Debug\net10.0\Project_1.pdb
-C:\Users\jrank\Desktop\School\Semester 7\PH385\Project_1\obj\Debug\net10.0\Project_1.genruntimeconfig.cache
-C:\Users\jrank\Desktop\School\Semester 7\PH385\Project_1\obj\Debug\net10.0\ref\Project_1.dll
+C:/Users/jrank/Desktop/School/Semester 7/PH385/Project_1/obj/Debug/net10.0/Project_1.GeneratedMSBuildEditorConfig.editorconfig
+C:/Users/jrank/Desktop/School/Semester 7/PH385/Project_1/obj/Debug/net10.0/Project_1.AssemblyInfoInputs.cache
+C:/Users/jrank/Desktop/School/Semester 7/PH385/Project_1/obj/Debug/net10.0/Project_1.AssemblyInfo.cs
+C:/Users/jrank/Desktop/School/Semester 7/PH385/Project_1/obj/Debug/net10.0/Project_1.csproj.CoreCompileInputs.cache
+C:/Users/jrank/Desktop/School/Semester 7/PH385/Project_1/bin/Debug/net10.0/Project_1.exe
+C:/Users/jrank/Desktop/School/Semester 7/PH385/Project_1/bin/Debug/net10.0/Project_1.deps.json
+C:/Users/jrank/Desktop/School/Semester 7/PH385/Project_1/bin/Debug/net10.0/Project_1.runtimeconfig.json
+C:/Users/jrank/Desktop/School/Semester 7/PH385/Project_1/bin/Debug/net10.0/Project_1.dll
+C:/Users/jrank/Desktop/School/Semester 7/PH385/Project_1/bin/Debug/net10.0/Project_1.pdb
+C:/Users/jrank/Desktop/School/Semester 7/PH385/Project_1/obj/Debug/net10.0/Project_1.dll
+C:/Users/jrank/Desktop/School/Semester 7/PH385/Project_1/obj/Debug/net10.0/refint/Project_1.dll
+C:/Users/jrank/Desktop/School/Semester 7/PH385/Project_1/obj/Debug/net10.0/Project_1.pdb
+C:/Users/jrank/Desktop/School/Semester 7/PH385/Project_1/obj/Debug/net10.0/Project_1.genruntimeconfig.cache
+C:/Users/jrank/Desktop/School/Semester 7/PH385/Project_1/obj/Debug/net10.0/ref/Project_1.dll
+/Users/jacksonrankin/Desktop/Student/7/PH385/Projects/Project_1/bin/Debug/net10.0/Project_1
+/Users/jacksonrankin/Desktop/Student/7/PH385/Projects/Project_1/bin/Debug/net10.0/Project_1.deps.json
+/Users/jacksonrankin/Desktop/Student/7/PH385/Projects/Project_1/bin/Debug/net10.0/Project_1.runtimeconfig.json
+/Users/jacksonrankin/Desktop/Student/7/PH385/Projects/Project_1/bin/Debug/net10.0/Project_1.dll
+/Users/jacksonrankin/Desktop/Student/7/PH385/Projects/Project_1/bin/Debug/net10.0/Project_1.pdb
+/Users/jacksonrankin/Desktop/Student/7/PH385/Projects/Project_1/obj/Debug/net10.0/Project_1.GeneratedMSBuildEditorConfig.editorconfig
+/Users/jacksonrankin/Desktop/Student/7/PH385/Projects/Project_1/obj/Debug/net10.0/Project_1.AssemblyInfoInputs.cache
+/Users/jacksonrankin/Desktop/Student/7/PH385/Projects/Project_1/obj/Debug/net10.0/Project_1.AssemblyInfo.cs
+/Users/jacksonrankin/Desktop/Student/7/PH385/Projects/Project_1/obj/Debug/net10.0/Project_1.csproj.CoreCompileInputs.cache
+/Users/jacksonrankin/Desktop/Student/7/PH385/Projects/Project_1/obj/Debug/net10.0/Project_1.sourcelink.json
+/Users/jacksonrankin/Desktop/Student/7/PH385/Projects/Project_1/obj/Debug/net10.0/Project_1.dll
+/Users/jacksonrankin/Desktop/Student/7/PH385/Projects/Project_1/obj/Debug/net10.0/refint/Project_1.dll
+/Users/jacksonrankin/Desktop/Student/7/PH385/Projects/Project_1/obj/Debug/net10.0/Project_1.pdb
+/Users/jacksonrankin/Desktop/Student/7/PH385/Projects/Project_1/obj/Debug/net10.0/Project_1.genruntimeconfig.cache
+/Users/jacksonrankin/Desktop/Student/7/PH385/Projects/Project_1/obj/Debug/net10.0/ref/Project_1.dll

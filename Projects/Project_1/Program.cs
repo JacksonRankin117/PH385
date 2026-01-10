@@ -1,12 +1,15 @@
 ﻿using System;
 
 class Program {
-    static void Main(String[] args) {
-        Vec3 a = new Vec3(1, 2, 3);
-        Vec3 b = new Vec3(4, 5, 6);
+    static void Main(String[] args)
+    {
+        // Create a Projectile object with the desireable variables
+        Projectile ball = new Projectile();
 
-        Vec3 result = Vec3.Cross(a, b);
+        // Euler's method (For quick debugging)
+        Methods.EulersMethod(ball);
 
-        Console.WriteLine(result.ToString(6));
+        // Write all the data to a .csv file.
+        Methods.ToFile(ball.Positions, ball.Times);
     }
 }
