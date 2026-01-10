@@ -16,8 +16,8 @@ class Methods
             proj.Positions.Add(proj.Positions.Last() + proj.Velocities.Last() * proj.dt);
 
             proj.Accelerations.Add(proj.g
-                                 + proj.DragAcceleration(proj.Velocities.Last()));
-                                 //+ proj.MagnusAcceleration(proj.InitOmega, proj.Velocities.Last()));
+                                 + proj.DragAcceleration(proj.Velocities.Last())
+                                 + proj.MagnusAcceleration(proj.InitOmega, proj.Velocities.Last()));
 
             // Increment through time
             proj.Times.Add(proj.Times.Last() + proj.dt);
@@ -33,18 +33,18 @@ class Methods
 
     public static List<Vec3> RK4(Projectile proj)
     {
-        double MAX_ITERS = 100_000;
-        for (int i = 0; proj.Positions.Last().Z >= 0.0 && i < MAX_ITERS; i++)
+        double MAX_ITERS = 10_000_000;
+        double dt = proj.dt;
+
+        for (int i = 0; i < MAX_ITERS && proj.Positions.Last().Z > 0.0; i++)
         {
+            // Fetch the current state at the start of EACH iteration
             Vec3 x = proj.Positions.Last();
             Vec3 v = proj.Velocities.Last();
-            double dt = proj.dt;
 
-            // Correctly helper to calculate total acceleration
-            Vec3 GetAccel(Vec3 currentVel) => 
-                proj.g + proj.DragAcceleration(currentVel) + proj.MagnusAcceleration(proj.InitOmega, currentVel);
+            Vec3 GetAccel(Vec3 currentVel) => proj.g + proj.DragAcceleration(currentVel);// + proj.MagnusAcceleration(proj.InitOmega, currentVel);
 
-            // RK4 Sub-steps
+            // RK4 Steps
             Vec3 k1v = GetAccel(v) * dt;
             Vec3 k1x = v * dt;
 
@@ -60,6 +60,7 @@ class Methods
             Vec3 v_new = v + (k1v + 2 * k2v + 2 * k3v + k4v) / 6.0;
             Vec3 x_new = x + (k1x + 2 * k2x + 2 * k3x + k4x) / 6.0;
 
+            // Add to lists
             proj.Velocities.Add(v_new);
             proj.Positions.Add(x_new);
             proj.Accelerations.Add(GetAccel(v_new));
@@ -69,23 +70,32 @@ class Methods
     }
 
 
-    public static void ToFile(List<Vec3> pos, List<double> times, string filepath = "/Users/jacksonrankin/Desktop/Student/7/PH385/Projects/Project_1/data.csv")
+    public static void ToFile(Projectile proj, string filepath = "/Users/jrank/Desktop/School/Semester 7/PH385/Projects/Project_1/data.csv")
     {
         try
         {
             using StreamWriter sw = new StreamWriter(filepath);
 
-            if (times.Count != pos.Count)
-                throw new ArgumentException("times and pos must have the same length");
+            // Pertinent data
+            List<Vec3> acc = proj.Accelerations;
+            List<Vec3> vel = proj.Velocities;
+            List<Vec3> pos = proj.Positions;
 
+            List<double> times = proj.Times;
 
             // Write the header
-            sw.WriteLine("t, x, y, z");
+            sw.WriteLine("t, x, y, z, vx, vy, vz, ax, ay, az");
 
             for (int i = 0; i < pos.Count; i++)
             {
+                // Grab current data
                 Vec3 p = pos[i];
-                sw.WriteLine($"{times[i]}, {p[0]}, {p[1]}, {p[2]}");
+                Vec3 v = vel[i];
+                Vec3 a = acc[i];
+
+                double t = times[i];
+                
+                sw.WriteLine($"{t}, {p[0]}, {p[1]}, {p[2]}, {v[0]}, {v[1]}, {v[2]}, {a[0]}, {a[1]}, {a[2]}");
             }
 
         }
