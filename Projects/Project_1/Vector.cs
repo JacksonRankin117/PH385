@@ -25,7 +25,7 @@ public struct Vec3
     public const double Epsilon = 1e-12;
     public const double Epsilon2 = 1e-6;
 
-    // ------------------------------------------------- Constructors --------------------------------------------------
+    // ================================================= Constructors ==================================================
 
     // Default constructor returns a zero-vector
     public Vec3() { }
@@ -33,7 +33,7 @@ public struct Vec3
     // You are able to initialize vector components with this constructor.
     public Vec3(double x, double y, double z) => (X, Y, Z) = (x, y, z);  
 
-    // ----------------------------------------------- Vector Properties -----------------------------------------------
+    // =============================================== Vector Properties ===============================================
 
     public readonly double MagnitudeSquared => (X * X) + (Y * Y) + (Z * Z);
 
@@ -60,13 +60,12 @@ public struct Vec3
     }
 
 
-    // ----------------------------------------------- Angle Conversions -----------------------------------------------
+    // =============================================== Angle Conversions ===============================================
     
-    // 
-    public static double DegToRad(double deg) => deg * Math.PI / 180.0;
-    public static double RadToDeg(double rad) => rad * 180.0 / Math.PI;
+    public static double DegToRad(double deg) => deg * Math.PI / 180.0;  // Converts degrees to radians
+    public static double RadToDeg(double rad) => rad * 180.0 / Math.PI;  // You'll just have to guess :)
 
-    // ----------------------------------------------- Vector Conversions ----------------------------------------------
+    // =============================================== Vector Conversions ==============================================
 
     public static Vec3 FromCylindrical(double rho, double phi, double z)
     {
@@ -102,7 +101,7 @@ public struct Vec3
         return (rho, Math.Acos(cosTheta), Math.Atan2(Y, X));
     }
 
-    // ------------------------------------------------ Relational Math ------------------------------------------------
+    // ================================================ Relational Math ================================================
 
     public static double AngleBetween(Vec3 a, Vec3 b)
     {
@@ -124,7 +123,7 @@ public struct Vec3
     // Return the distance between two vectors.
     public static double Distance(Vec3 a, Vec3 b) => (a - b).Magnitude;
 
-    // ----------------------------------------------- Operator Overloads ----------------------------------------------
+    // =============================================== Operator Overloads ==============================================
 
     // Boolean Operators
     public static bool operator ==(Vec3 a, Vec3 b) =>
@@ -157,9 +156,10 @@ public struct Vec3
         a.X * b.Y - a.Y * b.X
     );
 
-    // --------------------------------------------------- Debugging ---------------------------------------------------
+    // =================================================== Debugging ===================================================
 
-    public string ToString(int decimals, int columnWidth = 12)
+    // Returns the vector as a tabulated string, with as much precision as you like.
+    public string ToString(int decimals = 6, int columnWidth = 12)
     {
         string fmt = "F" + decimals;
 
@@ -170,6 +170,39 @@ public struct Vec3
         );
     }
 
+    // Method that parses a string input to a Vec3
+    public static bool TryParse(string s, out Vec3 v)
+    {
+        v = default;
+
+        if (string.IsNullOrWhiteSpace(s))
+            return false;
+
+        s = s.Replace("(", "").Replace(")", "");
+
+        string[] parts = s.Split(
+            new[] { ' ', ',', '\t' },
+            StringSplitOptions.RemoveEmptyEntries);
+
+        if (parts.Length != 3)
+            return false;
+
+        if (!double.TryParse(parts[0], NumberStyles.Float,
+            CultureInfo.InvariantCulture, out double x)) return false;
+
+        if (!double.TryParse(parts[1], NumberStyles.Float,
+            CultureInfo.InvariantCulture, out double y)) return false;
+
+        if (!double.TryParse(parts[2], NumberStyles.Float,
+            CultureInfo.InvariantCulture, out double z)) return false;
+
+        v = new Vec3(x, y, z);
+        return true;
+    }
+
+    // Grabs the hash code for the current Vec3 object
     public override readonly int GetHashCode() => HashCode.Combine(X, Y, Z);
+
+    // Tests if two vectors are the same
     public override readonly bool Equals(object? obj) => obj is Vec3 other && this == other;
 }
