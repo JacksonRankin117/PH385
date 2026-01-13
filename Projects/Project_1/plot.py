@@ -1,31 +1,27 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 
 # Load CSV
 df = pd.read_csv("Projects/Project_1/data.csv")
 
-# Clean column names
-df.columns = df.columns.str.strip()
+# Extract columns
+df.columns = df.columns.str.strip()  # removes whitespace
 
-# Check columns
-print(df.columns)
+x = df['x']
+y = df['y']
+z = df['z']
 
-# Extract numeric data
-x = pd.to_numeric(df['x'], errors='coerce')
-y = pd.to_numeric(df['y'], errors='coerce')
-z = pd.to_numeric(df['z'], errors='coerce')
-
-# 3D plot
-fig = plt.figure(figsize=(10, 8), dpi=200)
+# Create 3D plot
+fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
-ax.plot(x, y, z)
 
-# Plot the data
+ax.plot(x, y, z)  # use plot for line
+
+# Optional: labels
 ax.set_xlabel('X')
 ax.set_ylabel('Y')
 ax.set_zlabel('Z')
 ax.set_title('3D Trajectory')
 
-# Comment/uncomment these lines out so you can either save/show the resultant plot
-plt.plot()
-#plt.savefig("Projects\Project_1\Ping_Pong_Ball_Trajectory.png")
+plt.show()

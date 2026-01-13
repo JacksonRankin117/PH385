@@ -69,7 +69,7 @@ class Program {
         // ================================================ File Output ================================================
         // Write all flight telemetry data to a file
         string filepath = Path.Combine(Environment.CurrentDirectory, "Projects", "Project_1", "data.csv");
-
+        
         ComputationalMethods.ToFile(ball, filepath);
 
         // ============================================== Flight Details ===============================================
