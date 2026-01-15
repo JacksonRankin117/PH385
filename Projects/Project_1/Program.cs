@@ -52,8 +52,6 @@
  *                  Landing Site: (3.6195, 4.7100, -0.0004)
  *              
  *
- *              The rest of my files won't be quite as documented, though I hope my comments on those files will be 
- *              documentation enough.
  */
 
 

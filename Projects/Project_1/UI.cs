@@ -1,4 +1,12 @@
-using System;
+/*  Programmer: Jackson Rankin
+ *        Date: January 7th, 2026
+ *     Contact: ran23008@byui.edu
+ *
+ *    Overview: This file hlds the class definition for the UI. The main behavior of this class is to generate a UI in
+ *              the terminal to gather and display values for the user. 
+ *              
+ */
+
 using System.Globalization;
 
 class UI

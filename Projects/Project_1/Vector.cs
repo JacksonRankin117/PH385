@@ -1,18 +1,22 @@
-using System;
-using System.Globalization;
-
 /*
-    Programmer: Jackson Rankin
-          Date: Dec 30th, 2025
-       Purpose: The purpose of this struct is to hold the information and behavior of a 3D Cartesian vector.
-
-    A few important things to note: 
-    
-      - Everything is in Cartesian coordinates, and this struct is only capable of arithmetic as of 1/7/2026
-
-      - This is a vector struct that I reuse for several projects, so if it looks like I put too much effort in for the 
-        project at hand, that is because this struct is meant to apply to a general use.
+ *  Programmer: Jackson Rankin
+ *        Date: Dec 30th, 2025 (If you are Brother Kelley and are confused about this date, yes, this is a struct I made
+ *                              before the semester started)
+ *     Purpose: The purpose of this struct is to hold the information and behavior of a 3D Cartesian vector.
+ * 
+ *    Overview: This file holds a general purpose struct for a 3D vector using cartesian coordinates. This struct is 
+ *              able to handle vector arithmetic, including the dot and cross products, scalar multiplication, and holds
+ *              useful methods to find the distance between teo vectors, the projection of one vector on another, etc. 
+ *              
+ *  A few important things to note: 
+ *   
+ *    - Everything is in Cartesian coordinates, and this struct is only capable of arithmetic as of 1/7/2026
+ *
+ *    - This is a vector struct that I reuse for several projects, so if it looks like I put too much effort in for the 
+ *      project at hand, that is because this struct is meant to apply to a general use.
 */
+
+using System.Globalization;
 
 public struct Vec3
 {
