@@ -1,10 +1,18 @@
-using System;
+/*  Programmer: Jackson Rankin
+ *        Date: January 7th, 2026
+ *     Contact: ran23008@byui.edu
+ *
+ *    Overview: This file hlds the class definition for the UI. The main behavior of this class is to generate a UI in
+ *              the terminal to gather and display values for the user. 
+ *              
+ */
+
 using System.Globalization;
 
 class UI
 {   
     // Initialize the UI
-    public static Projectile Initialize()
+    public static (Projectile, double) Initialize()
     {   
         // Console UI header
         Console.Clear();
@@ -30,7 +38,7 @@ class UI
 
         // If the user selects the default settings, return a Projectile object made with the default constructor
         if (choice == 'Y')
-            return new Projectile();
+            return (new Projectile(), 0.001);
 
         // If 'N' (the only plausible other letter the user is able to choose), populate the Projectile object with the 
         // user's preferences.
@@ -48,9 +56,10 @@ class UI
         double area = ReadDouble("Cross-sectional area", " [m^2]");
         double c_d  = ReadDouble("Drag coefficient");
         double rho  = ReadDouble("Air density", " [kg/m^3]");
+        double dt   = ReadDouble("Time Step", "[s]");
 
         // Return the custom Projectile object.
-        return new Projectile(
+        return (new Projectile(
             pos,
             vel,
             omega,
@@ -59,7 +68,7 @@ class UI
             area,
             c_d,
             rho
-        );
+        ), dt);
     }
 
 

@@ -26,6 +26,9 @@
  *                  Mass [kg]: 0.0027
  *                  Cross-sectional area [m^2]: 0.00125663706144
  *                  Drag coefficient: 0.5
+ *                  Air density [kg/m^3]: 1.27
+ *                  Time Step[s]: 0.001
+ *                  
  * 
  *
  *              This describes a ping pong ball with a radius of 2 cm, and therefore a cross-sectional area of 
@@ -49,8 +52,6 @@
  *                  Landing Site: (3.6195, 4.7100, -0.0004)
  *              
  *
- *              The rest of my files won't be quite as documented, though I hope my comments on those files will be 
- *              documentation enough
  */
 
 
@@ -58,16 +59,15 @@ class Program {
     static void Main(String[] args) {   
         // =============================================== Sim Pipeline ================================================
         // Create a Projectile object with the desirable variables
-        Projectile ball = UI.Initialize();
+        (Projectile ball, double dt) = UI.Initialize();
 
         // RK4 method. Arguments include the Projectile object and a time step.
-        const double dt = 1e-3;
         ComputationalMethods.RK4(ball, dt);
 
         // ================================================ File Output ================================================
         // Write all flight telemetry data to a file
         string filepath = Path.Combine(Environment.CurrentDirectory, "Projects", "Project_1", "data.csv");
-
+        
         ComputationalMethods.ToFile(ball, filepath);
 
         // ============================================== Flight Details ===============================================

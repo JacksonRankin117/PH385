@@ -1,11 +1,22 @@
-using System.Numerics;
+/*  Programmer: Jackson Rankin
+ *        Date: January 7th, 2026
+ *     Contact: ran23008@byui.edu
+ *
+ *    Overview: This file holds the definition for a class called Projectile, which holds all of the information that 
+ *              a projectile may need. This class also holds the methods that calculates the external forces on the 
+ *              projectile excluding gravity, which is held as a Vec3 object called g. Since no computational methods
+ *              are implemented here, the only errors that arise are from floating point precision.
+ *              
+ *              
+ *              
+ */
 
 class Projectile {
 
     // ============================================= Projectile Variables ==============================================
 
     // Constants
-    public Vec3 g = new Vec3(0, 0, -9.81);
+    public Vec3 g = new (0, 0, -9.81);
 
     // Projectile properties
     public double M;                  // Holds the mass of the projectile in kgs

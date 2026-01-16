@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jrank\\Desktop\\School\\Semester 7\\PH385\\Projects\\Project_1\\Project_1.csproj": {}
+    "/Users/jacksonrankin/Desktop/Student/7/PH385/Projects/Project_1/Project_1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jrank\\Desktop\\School\\Semester 7\\PH385\\Projects\\Project_1\\Project_1.csproj": {
+    "/Users/jacksonrankin/Desktop/Student/7/PH385/Projects/Project_1/Project_1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jrank\\Desktop\\School\\Semester 7\\PH385\\Projects\\Project_1\\Project_1.csproj",
+        "projectUniqueName": "/Users/jacksonrankin/Desktop/Student/7/PH385/Projects/Project_1/Project_1.csproj",
         "projectName": "Project_1",
-        "projectPath": "C:\\Users\\jrank\\Desktop\\School\\Semester 7\\PH385\\Projects\\Project_1\\Project_1.csproj",
-        "packagesPath": "C:\\Users\\jrank\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jrank\\Desktop\\School\\Semester 7\\PH385\\Projects\\Project_1\\obj\\",
+        "projectPath": "/Users/jacksonrankin/Desktop/Student/7/PH385/Projects/Project_1/Project_1.csproj",
+        "packagesPath": "/Users/jacksonrankin/.nuget/packages/",
+        "outputPath": "/Users/jacksonrankin/Desktop/Student/7/PH385/Projects/Project_1/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\jrank\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/Users/jacksonrankin/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
@@ -59,7 +59,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.101/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.101/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",

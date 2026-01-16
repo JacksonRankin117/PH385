@@ -1,5 +1,12 @@
-using System;
-using System.IO;
+/*  Programmer: Jackson Rankin
+ *        Date: January 7th, 2026
+ *     Contact: ran23008@byui.edu
+ *
+ *    Overview: This file holds the definition for a class called ComputationalMethods. This class holds the behavior
+ *              for both RK4 and Euler's Method, both of which take a Projectile object and a double called time_step,
+ *              which means that it is subject to floating point errors, but it is less expensive than using other 
+ *              datatypes like decimals.
+ */
 
 class ComputationalMethods
 {
