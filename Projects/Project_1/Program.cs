@@ -54,8 +54,6 @@
  */
 
 
-using System;
-
 class Program {
     static void Main(String[] args) {   
         // =============================================== Sim Pipeline ================================================
@@ -73,7 +71,7 @@ class Program {
         ComputationalMethods.ToFile(ball, filepath);
 
         // ============================================== Flight Details ===============================================
-        // Output the position of the apex, the flight duration, and landing coordinate.
+        // Output the position of the apex, the flight duration, and landing coordinate. 
         ComputationalMethods.FlightDetails(ball);
     }
 }
