@@ -6,7 +6,7 @@
  * 
  *    Overview: This file holds a general purpose struct for a 3D vector using cartesian coordinates. This struct is 
  *              able to handle vector arithmetic, including the dot and cross products, scalar multiplication, and holds
- *              useful methods to find the distance between teo vectors, the projection of one vector on another, etc. 
+ *              useful methods to find the distance between two vectors, the projection of one vector on another, etc. 
  *              
  *  A few important things to note: 
  *   
