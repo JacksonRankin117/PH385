@@ -60,10 +60,10 @@ class Projectile {
         // Calculate initial acceleration
         InitAcceleration = g + DragAcceleration(InitVel) + MagnusAcceleration(InitOmega, InitVel);
 
-        Positions = [InitPos];
-        Velocities = [InitVel];
+        Positions     = [InitPos];
+        Velocities    = [InitVel];
         Accelerations = [InitAcceleration];
-        Times = [InitTime];
+        Times         = [InitTime];
     }
 
     // This constructor takes various arguments to cater to the user.
