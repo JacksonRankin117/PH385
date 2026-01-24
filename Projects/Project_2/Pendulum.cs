@@ -1,3 +1,15 @@
+/*  Programmer: Jackson Rankin
+ *        Date: January 19th, 2026
+ *     Contact: ran23008@byui.edu
+ *
+ *    Overview: This file holds the definition for a class called Pendulum, which holds all of the information that 
+ *              a driven and damped pendulum may need. This class also holds the methods that calculates the forces on
+ *              the projectile. These forces include gravity, the force from friction, and the driving force. Since no 
+ *              computational methods are implemented here, the only errors that arise are from  floating point 
+ *              precision.
+ *              
+ */
+
 class Pendulum
 {
     // Gravity
@@ -34,7 +46,23 @@ class Pendulum
         _thetas = [_init_theta];     // Initializes the list of angles with the initial angle
         _times  = [_init_time];      // Initializes the list of times with the initial time
     }
-    // Pendulum(double length, double mass, double init_theta, double init_omega) {}
+    public Pendulum(double length, double damping_coeff, double init_theta, double init_omega, double init_time, 
+                    double driving_force, double driving_omega)
+    {
+        // User defined parameters
+        _length        = length;         // Length of the pendulum in meters
+        _damping_coeff = damping_coeff;  // Damping coefficient
+        _init_theta    = init_theta;     // Initial angle in radians in radians
+        _init_omega    = init_omega;     // Initial angular velocity in rad/sec
+        _init_time     = init_time;      // Initial time in seconds
+        _driving_force = driving_force;  // Driving force amplitude in Newtons
+        _driving_omega = driving_omega;  // Frequency of the driving force in rad/sec
+
+        // Pendulum motion initialization
+        _omegas = [_init_omega];         // Initializes the list of angular velocity with the initial angular velocity
+        _thetas = [_init_theta];         // Initializes the list of angles with the initial angle
+        _times  = [_init_time];          // Initializes the list of times with the initial time
+    }
 
     // ==================================================== Methods ====================================================
     public double GravityAcceleration(double theta_i)
