@@ -14,6 +14,7 @@ class Methods
 {
     public static void EulerCromer(Pendulum pend, double dt, double t_f)
     {
+        // Stop the sim if the time goes above the final time, which is 180s for the
         while (pend._times.Last() < t_f)
         {
             // Find the new angular velocity
