@@ -32,8 +32,6 @@ end
 
 pts = Observable(pts_init)
 
-# ... (Keep your data loading and pts initialization) ...
-
 # ---------- PLOT ----------
 fig = Figure(size = (800, 800), backgroundcolor = :white)
 ax  = Axis3(fig[1, 1], 

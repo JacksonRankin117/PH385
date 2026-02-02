@@ -1,4 +1,15 @@
-using System;
+/*  Programmer: Jackson Rankin
+ *        Date: January 21st, 2026
+ *     Contact: ran23008@byui.edu
+ *
+ *    Overview: This file holds the definition for a namespace called Celestial. I have a constants portion, which holds
+ *              definitions for important constants like the name suggests. There is also a definition for a class 
+ *              called Body, which holds all of the information that a massive body might need in three dimensions. This
+ *              class also holds the methods that calculates the forces on and by a different body. Since no 
+ *              computational methods are implemented here, the only errors that arise are from floating point 
+ *              precision.
+ *              
+ */
 
 namespace Celestial
 {

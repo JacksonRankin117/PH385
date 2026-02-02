@@ -1,5 +1,14 @@
-using System.Collections.Generic;
-using System.Linq;
+/*  Programmer: Jackson Rankin
+ *        Date: January 21st, 2026
+ *     Contact: ran23008@byui.edu
+ *
+ *    Overview: This file holds the definition for the Methods class, which holds the behavior for my Verlet integration
+ *              method, a gravition as well as a file output for all the data. The errors arising from this file are 
+ *              only from the Verlet method, which is susceptible to floating-point errors, though I use double-
+ *              precision floats, and from the algorithm itself, which has an error on the order of dt^2, or in other 
+ *              words, epsilon ~ 0.000001 by default parameters. Of course, you can change this if you do a custom dt.
+ *              
+ */
 
 public static class Methods
 {
@@ -7,79 +16,57 @@ public static class Methods
     {
         double t = 0;
 
-        // Initialize accelerations for the very first step
-        UpdateAllAccelerations(bodies);
-
-        //
-        int iters = 0;
+        // Initial acceleration for all bodies at t=0
+        foreach (var body in bodies)
+        {
+            body._acc.Add(GravAccel(bodies, body) / body._mass);
+        }
 
         while (t < t_f)
         {
-            // 1. Half-step velocity and Full-step position
+            // 1. Update Positions: r(t + dt) = r(t) + v(t)dt + 0.5 * a(t)dt^2
             foreach (var body in bodies)
             {
-                // v(t + 0.5dt) = v(t) + 0.5 * a(t) * dt
-                Vec3 halfVel = body._vel.Last() + (body._acc.Last() * 0.5 * dt);
-                
-                // r(t + dt) = r(t) + v(t + 0.5dt) * dt
-                Vec3 nextPos = body._pos.Last() + (halfVel * dt);
-                
+                Vec3 nextPos = body._pos.Last() + body._vel.Last() * dt + 0.5 * body._acc.Last() * (dt * dt);
                 body._pos.Add(nextPos);
-                // Temporarily store the half-velocity to finish the update later
-                body._vel.Add(halfVel); 
             }
 
-            // 2. Update accelerations based on NEW positions
-            UpdateAllAccelerations(bodies);
-
-            // 3. Finish the velocity update
+            // 2. Calculate new accelerations: a(t + dt) using the new positions
+            // Note: We store these temporarily or add them to the list to use for velocity
             foreach (var body in bodies)
             {
-                // v(t + dt) = v(t + 0.5dt) + 0.5 * a(t + dt) * dt
-                Vec3 finalVel = body._vel.Last() + (body._acc.Last() * 0.5 * dt);
-                
-                // Replace the temporary half-velocity with the final velocity
-                body._vel[body._vel.Count - 1] = finalVel;
+                body._acc.Add(GravAccel(bodies, body) / body._mass);
             }
-            iters++;
 
-            if (iters > 20_000_000)
-            {   
-                Console.WriteLine(t);
-                break;
+            // 3. Update Velocities: v(t + dt) = v(t) + 0.5 * (a(t) + a(t + dt))dt
+            foreach (var body in bodies)
+            {
+                int lastIdx = body._acc.Count - 1;
+                Vec3 nextVel = body._vel.Last() + 0.5 * (body._acc[lastIdx - 1] + body._acc[lastIdx]) * dt;
+                body._vel.Add(nextVel);
             }
+
             t += dt;
         }
     }
 
-    private static void UpdateAllAccelerations(List<Celestial.Body> bodies)
+    public static Vec3 GravAccel(List<Celestial.Body> bodies, Celestial.Body body_i)
     {
-        // Reset/Initialize current acceleration for all bodies to zero
-        Dictionary<Celestial.Body, Vec3> currentAccels = new();
-        foreach (var b in bodies) currentAccels[b] = new Vec3(0, 0, 0);
+        Vec3 grav_force = new();
 
-        // N-Body interaction loop
-        for (int i = 0; i < bodies.Count; i++)
+        foreach (var i in bodies) 
         {
-            for (int j = i + 1; j < bodies.Count; j++)
+            if (i == body_i)
             {
-                var b1 = bodies[i];
-                var b2 = bodies[j];
-
-                // F = (G * m1 * m2 * r_vec) / |r|^3
-                // a = F / m
-                Vec3 force = Celestial.Body.GravityVec(b1, b2);
-
-                currentAccels[b1] += force / b1._mass;
-                currentAccels[b2] -= force / b2._mass; // Newton's 3rd Law
+                continue;
             }
+
+            grav_force += Celestial.Body.GravityVec(body_i, i);
         }
 
-        foreach (var b in bodies)
-        {
-            b._acc.Add(currentAccels[b]);
-        }
+        return grav_force;
     }
+
 
     public static void ToFile(List<Celestial.Body> bodies, string filepath, double dt)
     {

@@ -14,7 +14,7 @@
  *
  *    - This is a vector struct that I reuse for several projects, so if it looks like I put too much effort in for the 
  *      project at hand, that is because this struct is meant to apply to a general use.
-*/
+ */
 
 using System.Globalization;
 
