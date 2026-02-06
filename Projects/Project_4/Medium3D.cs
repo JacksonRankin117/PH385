@@ -1,12 +1,11 @@
+using System;
+
 class Medium3D
 {
-    // Add an error
-    readonly double epsilon = 1e-12;  // Max safe res for doubles
-
     // Physical constants
-    readonly double k = 8.987e9;      // Coulomb's constant
+    public readonly double epsilon0 = 8.854187817e-12;
 
-    // Dimensions of the medium in meters
+    // Domain limits
     public readonly double _x_lim_min;
     public readonly double _x_lim_max;
     public readonly double _y_lim_min;
@@ -14,18 +13,20 @@ class Medium3D
     public readonly double _z_lim_min;
     public readonly double _z_lim_max;
 
-    // Points per meter
-    public int _res;
+    // Spatial step
+    public readonly double _dL;
+    public readonly int _res;
 
-    // Makes a grid with the dimensions and the resolution
-    public double[,,] grid = new double[1, 1, 1];
+    // Storage grids
+    public double[,,] grid;
+    public bool[,,] isFixed;
+    public double[,,] rho;
 
-    public Medium3D(double x_lim_min, double x_lim_max, 
-                    double y_lim_min, double y_lim_max, 
-                    double z_lim_min, double z_lim_max, 
-                    int res)
-    {   
-        // Populate the dimensions of the medium
+    public Medium3D(double x_lim_min, double x_lim_max,
+                    double y_lim_min, double y_lim_max,
+                    double z_lim_min, double z_lim_max,
+                    double dL = 0.025)
+    {
         _x_lim_min = x_lim_min;
         _x_lim_max = x_lim_max;
         _y_lim_min = y_lim_min;
@@ -33,81 +34,132 @@ class Medium3D
         _z_lim_min = z_lim_min;
         _z_lim_max = z_lim_max;
 
-        // Finds the range of limits
+        _dL = dL;
+        _res = (int)Math.Round(1/dL);
+
         double del_x = x_lim_max - x_lim_min;
         double del_y = y_lim_max - y_lim_min;
         double del_z = z_lim_max - z_lim_min;
 
-        // Number of points in each direction
-        int x_res = res * Convert.ToInt32(del_x);
-        int y_res = res * Convert.ToInt32(del_y);
-        int z_res = res * Convert.ToInt32(del_z);
+        int x_res = (int)Math.Round(del_x * _res);
+        int y_res = (int)Math.Round(del_y * _res);
+        int z_res = (int)Math.Round(del_z * _res);
 
-        // Finds the position step
-        double dL = 1 / res;
-    }
-    
-    // Returns the index of a grid point given the Cartesian coordinates of the point
-    public (int x_index, int y_index, int z_index) GetIndex(double x_mag, double y_mag, double z_mag)
-    {   
-        int x_index = Convert.ToInt32(x_mag * _res);
-        int y_index = Convert.ToInt32(y_mag * _res);
-        int z_index = Convert.ToInt32(z_mag * _res);
-
-        return (x_index, y_index, z_index);
+        grid = new double[x_res, y_res, z_res];
+        isFixed = new bool[x_res, y_res, z_res];
+        rho = new double[x_res, y_res, z_res];
     }
 
-    // Return the Cartesian coordinates of a point given an index
-    public (double x_coord, double y_coord, double z_mag) GetCoords(int x_index, int y_index, int z_index)
+    // -------------------------------
+    // Coordinate ↔ Index conversion
+    // -------------------------------
+
+    public (int, int, int) GetIndex(double x, double y, double z)
     {
-        double x_coord = x_index / _res;
-        double y_coord = y_index / _res;
-        double z_coord = z_index / _res;
+        int ix = (int)Math.Round((x - _x_lim_min) * _res);
+        int iy = (int)Math.Round((y - _y_lim_min) * _res);
+        int iz = (int)Math.Round((z - _z_lim_min) * _res);
 
-        return (x_coord, y_coord, z_coord);
+        return (ix, iy, iz);
     }
 
-    // Adds a disk with fixed potential parallel to the XY plane
+    public (double, double, double) GetCoords(int i, int j, int k)
+    {
+        double x = _x_lim_min + i * _dL;
+        double y = _y_lim_min + j * _dL;
+        double z = _z_lim_min + k * _dL;
+
+        return (x, y, z);
+    }
+
+    // -------------------------------
+    // Add fixed-potential disk
+    // -------------------------------
+
     public void AddDisk(double X, double Y, double Z, double radius, double V)
     {
-        // Convert disk center to grid index
-        var (cx, cy, cz) = GetIndex(X - _x_lim_min, Y - _y_lim_min, Z - _z_lim_min);
-
-        // Convert radius to grid units
+        var (cx, cy, cz) = GetIndex(X, Y, Z);
         int rIndex = (int)Math.Round(radius * _res);
 
-        int xCount = grid.GetLength(0);
-        int yCount = grid.GetLength(1);
-        int zCount = grid.GetLength(2);
+        int nx = grid.GetLength(0);
+        int ny = grid.GetLength(1);
+        int nz = grid.GetLength(2);
 
-        // Only operate near the disk plane
-        if (cz < 0 || cz >= zCount)
-            return;
+        if (cz < 0 || cz >= nz) return;
 
-        for (int i = Math.Max(0, cx - rIndex); i <= Math.Min(xCount - 1, cx + rIndex); i++)
+        for (int i = Math.Max(0, cx - rIndex); i <= Math.Min(nx - 1, cx + rIndex); i++)
         {
-            for (int j = Math.Max(0, cy - rIndex); j <= Math.Min(yCount - 1, cy + rIndex); j++)
+            for (int j = Math.Max(0, cy - rIndex); j <= Math.Min(ny - 1, cy + rIndex); j++)
             {
-                // Distance from disk center in XY plane
                 int dx = i - cx;
                 int dy = j - cy;
 
                 if (dx * dx + dy * dy <= rIndex * rIndex)
                 {
                     grid[i, j, cz] = V;
+                    isFixed[i, j, cz] = true;
                 }
             }
         }
     }
 
+    // -------------------------------
+    // Add point charge
+    // -------------------------------
+
     public void AddCharge(double X, double Y, double Z, double charge)
     {
-        // Convert disk center to grid index
-        var (cx, cy, cz) = GetIndex(X - _x_lim_min, Y - _y_lim_min, Z - _z_lim_min);
+        var (cx, cy, cz) = GetIndex(X, Y, Z);
 
-        int xCount = grid.GetLength(0);
-        int yCount = grid.GetLength(1);
-        int zCount = grid.GetLength(2);
-        
+        int nx = grid.GetLength(0);
+        int ny = grid.GetLength(1);
+        int nz = grid.GetLength(2);
+
+        if (cx < 0 || cx >= nx ||
+            cy < 0 || cy >= ny ||
+            cz < 0 || cz >= nz)
+            return;
+
+        double cellVolume = Math.Pow(_dL, 3);
+
+        rho[cx, cy, cz] += charge / cellVolume;
+    }
+
+    // -------------------------------
+    // Optional: Ground boundaries
+    // -------------------------------
+
+    public void GroundBoundaries(double V = 0.0)
+    {
+        int nx = grid.GetLength(0);
+        int ny = grid.GetLength(1);
+        int nz = grid.GetLength(2);
+
+        for (int i = 0; i < nx; i++)
+        for (int j = 0; j < ny; j++)
+        {
+            SetFixed(i, j, 0, V);
+            SetFixed(i, j, nz - 1, V);
+        }
+
+        for (int i = 0; i < nx; i++)
+        for (int k = 0; k < nz; k++)
+        {
+            SetFixed(i, 0, k, V);
+            SetFixed(i, ny - 1, k, V);
+        }
+
+        for (int j = 0; j < ny; j++)
+        for (int k = 0; k < nz; k++)
+        {
+            SetFixed(0, j, k, V);
+            SetFixed(nx - 1, j, k, V);
+        }
+    }
+
+    private void SetFixed(int i, int j, int k, double V)
+    {
+        grid[i, j, k] = V;
+        isFixed[i, j, k] = true;
     }
 }
