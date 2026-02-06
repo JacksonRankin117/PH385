@@ -18,7 +18,7 @@
         medium.AddCharge( 0.00, -0.25, 0.00, -1e-6);
 
         // Solve the potential
-        Methods.SolveSOR(medium, 1.0);
+        Methods.SolveSOR(medium, 2.0);
 
         // Store the filepath in a string
         string filepath = Path.Combine(Environment.CurrentDirectory, "data.csv");

@@ -27,6 +27,7 @@ class Medium3D
                     double z_lim_min, double z_lim_max,
                     double dL = 0.025)
     {
+        // Populate the attrubutes of the medium
         _x_lim_min = x_lim_min;
         _x_lim_max = x_lim_max;
         _y_lim_min = y_lim_min;
@@ -34,17 +35,21 @@ class Medium3D
         _z_lim_min = z_lim_min;
         _z_lim_max = z_lim_max;
 
-        _dL = dL;
-        _res = (int)Math.Round(1/dL);
+        // Res variables
+        _dL = dL;                      // Populates the spatial step
+        _res = (int)Math.Round(1/dL);  // calculatea and stores the gridpoints per meter
 
+        // Finds and stores the dimensions of the medium
         double del_x = x_lim_max - x_lim_min;
         double del_y = y_lim_max - y_lim_min;
         double del_z = z_lim_max - z_lim_min;
 
+        // Finds the 
         int x_res = (int)Math.Round(del_x * _res);
         int y_res = (int)Math.Round(del_y * _res);
         int z_res = (int)Math.Round(del_z * _res);
 
+        // Generates 
         grid = new double[x_res, y_res, z_res];
         isFixed = new bool[x_res, y_res, z_res];
         rho = new double[x_res, y_res, z_res];
