@@ -11,8 +11,6 @@ z_slice = z_vals[np.argmin(np.abs(z_vals - 0.0))]
 
 slice_df = df[np.isclose(df["z"], z_slice)]
 
-pivot = slice_df.pivot(index="x", columns="y", values="V")
-
 grid = slice_df.pivot(index="x", columns="y", values="V")
 
 # Make a meshgrid for potential
