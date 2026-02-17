@@ -1,10 +1,25 @@
+/*  Programmer: Jackson Rankin
+ *        Date: February 9th, 2026
+ *     Contact: ran23008@byui.edu
+ * 
+ *    Overview: This file houses the class definition for my Method class. This class solves the wave equation, and
+ *              outputs the data to a csv. The data file is quite large, around 1.23 GB in default conditions, so the 
+ *              program may take a few moments to run, depending on the system.
+ *              
+ *              As said in Program.cs, the only errors originate from doubles and from the modified Jacobi relaxation 
+ *              loop.
+ *              
+ *              
+ */
+
 using System.Text;
 
 class Method
 {
     // =================================================== Solve PDE ===================================================
-    public static List<double[]> SolveWave(Cable cable, double r = 0.01, double epsilon = 0.00001, double t_f = 0.25)
+    public static List<double[]> SolveWave(Cable cable, double r = 0.01, double epsilon = 0.001, double t_f = 0.25)
     {   
+        // Populate the necessary variables.
         double[] init_condition = cable.DefaultInitCondition();
         double L = cable.Length;    
         double M = cable.Segments;  
@@ -16,8 +31,9 @@ class Method
 
         double t = 0.0;
         int iters = 0;
-        int max_iters = 1_000_000; // Increased to accommodate small dt
+        int max_iters = 1_000_000; // The nominal iteration count should be 625,000
 
+        // Calculate various coefficients, saving a bit of time
         double c1 = 2 - 2*r*r - 6*epsilon*r*r*M*M;
         double c3 = r*r * (1 + 4*epsilon*M*M);
         double c4 = -epsilon * r*r * M*M;
