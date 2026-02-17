@@ -22,8 +22,8 @@ class Cable(double length = 1.0, double speed = 250, int segments = 100)
             else
             {
                 u[i] = GaussWave( 0.01, 0.50, 0.10, x)
-                    + GaussWave( 0.01, 0.35, 0.05, x)
-                    + GaussWave(-0.01, 0.75, 0.03, x);
+                     + GaussWave( 0.01, 0.35, 0.05, x)
+                     + GaussWave(-0.01, 0.75, 0.03, x);
             }
         }
 

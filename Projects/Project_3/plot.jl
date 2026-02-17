@@ -1,4 +1,1 @@
-# sin_plot.jl
-
-using Pkg
-Pkg.add("Makie")
+import Pkg; Pkg.add("Statistics")
